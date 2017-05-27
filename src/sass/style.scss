@@ -3,45 +3,20 @@
 * Version: 1.0
 */
 
-@import 'normalize';
-@import 'typography';
-@import 'navigation';
-@import 'sidebar';
-@import 'comments';
-@import 'footer';
+@import "./initializers/variables";
+@import "./initializers/mixins";
+@import "./initializers/mediaQueries";
+@import "./initializers/typography";
+@import "./initializers/grid";
+@import "./initializers/combo";
+
 /*
 ====================================
 Default Styling
 ====================================
 */
 
-img {
-	max-width: 100%;
-}
-
-body {
-	color: #333;
-}
-
 .container {
-	max-width: 1200px;
+	max-width: $container-width;
 	margin: 0 auto;
 }
-
-.content {
-	float: left;
-	width: 65%;
-	margin-right: 5%;
-}
-
-.full {
-	width: 100%;
-}
-
-
-
-
-
-
-
-

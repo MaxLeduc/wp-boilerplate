@@ -1,0 +1,35 @@
+@mixin media($breakpoint) {
+  // If the key exists in the map
+  @if map-has-key($breakpoints, $breakpoint) {
+    // Prints a media query based on the value
+    @media #{inspect(map-get($breakpoints, $breakpoint))} {
+      @content;
+    }
+  }
+
+  @else {
+    @warn "Unfortunately, no value could be retrieved from `#{$breakpoints}`. " + "Please make sure it is defined in the `$breakpoints` map.";
+  }
+}
+
+// USE LIKE THIS:
+// >= 480px
+// @include media(palm) {}
+
+// >= 600px
+// @include media(phablet) {}
+
+// >= 1023px
+// @include media(portable) {}
+
+// 481px to 1023px
+// @include media(lap) {}
+
+// >= 1366px
+// @include media(screen) {}
+
+// 1024px +
+// @include media(desk) {}
+
+// 481px +
+// @include media(large) {}

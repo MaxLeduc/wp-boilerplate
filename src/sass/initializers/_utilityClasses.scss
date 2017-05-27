@@ -1,0 +1,14 @@
+// Typography Utilities
+.u-italic {font-style: italic !important;}
+.u-bold {font-weight: 600 !important;}
+.u-fontSizeZero {font-size: 0 !important;}
+
+// Layout Helpers
+.u-block {display: block !important;}
+.u-inlineBlock {display: inline-block !important;}
+.u-center {margin-right: auto !important; margin-left: auto !important;}
+.u-alignCenter {text-align: center !important;}
+.u-alignRight {text-align: right !important;}
+.u-alignLeft {text-align: left !important;}
+.u-verticalAlignMiddle {vertical-align: middle !important;}
+.u-autoWidth {width: auto !important;}

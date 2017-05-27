@@ -74,7 +74,7 @@ gulp.task('watch', function () {
   gulp.watch(['./src/sass/*.scss', './template-parts/**/*.scss'], ['styles'])
   gulp.watch('./template-parts/**/*.js', ['components_scripts'])
   gulp.watch('./src/js/*.js', ['scripts'])
-  gulp.watch('./**/*.php', reload)
+  gulp.watch('./**/**/*.php', reload)
 })
 
 gulp.task('default', ['styles', 'components_scripts', 'scripts', 'images', 'bs', 'watch'])

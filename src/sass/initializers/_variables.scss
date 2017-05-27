@@ -1,0 +1,32 @@
+///////////////////////
+//// BASE SETTINGS ////
+///////////////////////
+$base-font-size: 16px;
+$gutter: 20px;
+$container-width: 1440px;
+
+///////////////////////
+//// BREAKPOINTS ////
+///////////////////////
+$breakpoints: (
+  palm: '(max-width: 480px)',
+  phablet: '(max-width: 600px)',
+  ipad: '(max-width: 768px)',
+  lap: '(min-width: 481px) and (max-width: 1023px)',
+  screen: '(max-width: 1366px)',
+  desk: '(min-width: 1024px)',
+  portable: '(max-width: 1023px)',
+  large: '(min-width: 481px)'
+);
+
+//////////////////
+//// COLOURS ////
+/////////////////
+
+// colours go here
+
+///////////////////////////////
+//// TYPEPOGRAPHY SETTINGS ////
+///////////////////////////////
+
+// typography settings (fonts, etc.)
