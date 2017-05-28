@@ -12,9 +12,8 @@ var gulp = require('gulp'),
   uglify = require('gulp-uglify'),
   browserify = require('gulp-browserify')
 
-var scriptPaths = [
-  './node_modules/jquery/dist/jquery.min.js',
-  './src/js/*.js'
+var vendorScripts = [
+  './node_modules/jquery/dist/jquery.min.js'
 ]
 
 var stylesPaths = [
@@ -52,8 +51,19 @@ gulp.task('components_scripts', function () {
       .pipe(gulp.dest('./src/js'))
 })
 
+gulp.task('vendorScripts', function () {
+  return gulp.src(vendorScripts)
+    .pipe(plumber({
+      errorHandler: notify.onError('Error: <%= error.message %>')
+    }))
+    .pipe(concat('vendors.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest('./dist/js'))
+    .pipe(reload({stream: true}))
+})
+
 gulp.task('scripts', function () {
-  return gulp.src(scriptPaths)
+  return gulp.src('./src/js/*.js')
     .pipe(plumber({
       errorHandler: notify.onError('Error: <%= error.message %>')
     }))
@@ -77,4 +87,4 @@ gulp.task('watch', function () {
   gulp.watch('./**/**/*.php', reload)
 })
 
-gulp.task('default', ['styles', 'components_scripts', 'scripts', 'images', 'bs', 'watch'])
+gulp.task('default', ['styles', 'vendorScripts', 'components_scripts', 'scripts', 'images', 'bs', 'watch'])
