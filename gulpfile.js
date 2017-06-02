@@ -17,8 +17,17 @@ var vendorScripts = [
 ]
 
 var stylesPaths = [
-  './template-parts/**/*.scss',
+  './includes/**/*.scss',
   './src/sass/*.scss'
+]
+
+var defaultTasks = [
+  'styles',
+  'vendorScripts',
+  'scripts',
+  'images',
+  'bs',
+  'watch'
 ]
 
 gulp.task('bs', function () {
@@ -42,15 +51,6 @@ gulp.task('styles', function () {
     .pipe(reload({ stream: true }))
 })
 
-gulp.task('components_scripts', function () {
-  return gulp.src('./template-parts/**/*.js')
-      .pipe(browserify({
-        insertGlobals: true
-      }))
-      .pipe(concat('components.js'))
-      .pipe(gulp.dest('./src/js'))
-})
-
 gulp.task('vendorScripts', function () {
   return gulp.src(vendorScripts)
     .pipe(plumber({
@@ -62,8 +62,23 @@ gulp.task('vendorScripts', function () {
     .pipe(reload({stream: true}))
 })
 
-gulp.task('scripts', function () {
-  return gulp.src('./src/js/*.js')
+gulp.task('includes_scripts', function () {
+  return gulp.src(['./includes/**/*.js'])
+    .pipe(plumber({
+      errorHandler: notify.onError('Error: <%= error.message %>')
+    }))
+    .pipe(browserify({
+      insertGlobals: true,
+      debug: !gulp.env.production
+    }))
+    .pipe(concat('includes.min.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest('./dist/js'))
+    .pipe(reload({stream: true}))
+})
+
+gulp.task('scripts', ['includes_scripts'], function () {
+  return gulp.src(['./dist/js/includes.min.js', './src/js/*.js'])
     .pipe(plumber({
       errorHandler: notify.onError('Error: <%= error.message %>')
     }))
@@ -79,12 +94,11 @@ gulp.task('images', function () {
     .pipe(gulp.dest('./images'))
 })
 
-// configure which files to watch and what tasks to use on file changes
 gulp.task('watch', function () {
-  gulp.watch(['./src/sass/*.scss', './template-parts/**/*.scss'], ['styles'])
-  gulp.watch('./template-parts/**/*.js', ['components_scripts'])
+  gulp.watch(['./src/sass/*.scss', './includes/**/*.scss'], ['styles'])
+  gulp.watch('./includes/**/*.js', ['includes_scripts'])
   gulp.watch('./src/js/*.js', ['scripts'])
   gulp.watch('./**/**/*.php', reload)
 })
 
-gulp.task('default', ['styles', 'vendorScripts', 'components_scripts', 'scripts', 'images', 'bs', 'watch'])
+gulp.task('default', defaultTasks)

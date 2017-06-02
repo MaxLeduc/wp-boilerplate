@@ -50,8 +50,16 @@ add_action( 'wp_enqueue_scripts', 'theme_styles');
 
 function theme_scripts() {
   wp_enqueue_script(
+    'vendors', //handle
+    get_template_directory_uri() . '/dist/js/vendors.js', //source
+    null, // version number
+    true //load in footer
+  );
+
+  wp_enqueue_script(
     'scripts', //handle
     get_template_directory_uri() . '/dist/js/main.min.js', //source
+    array( 'vendors' ), //dependencies
     null, // version number
     true //load in footer
   );
