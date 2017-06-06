@@ -18,7 +18,7 @@ var vendorScripts = [
 
 var stylesPaths = [
   './includes/**/*.scss',
-  './src/sass/*.scss'
+  './src/sass/styles.scss'
 ]
 
 var defaultTasks = [
@@ -34,6 +34,21 @@ gulp.task('bs', function () {
   browserSync.init({
     proxy: 'http://localhost'
   })
+})
+
+gulp.task('styleguide_styles', function () {
+  return gulp.src('./src/sass/styleguide.scss')
+    .pipe(plumber({
+      errorHandler: notify.onError('Error: <%= error.message %>')
+    }))
+    .pipe(sourcemaps.init())
+    .pipe(sass())
+    .pipe(minifyCSS())
+    .pipe(concat('styleguide.css'))
+    .pipe(autoprefixer('last 5 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1'))
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest('./dist/css'))
+    .pipe(reload({ stream: true }))
 })
 
 gulp.task('styles', function () {
@@ -102,3 +117,4 @@ gulp.task('watch', function () {
 })
 
 gulp.task('default', defaultTasks)
+gulp.task('styleguide', ['styleguide_styles'])

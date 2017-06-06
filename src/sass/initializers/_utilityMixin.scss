@@ -1,0 +1,76 @@
+$sizes: (
+  none: '0',
+  xxsmall: '5px',
+  xsmall: '10px',
+  small: '20px',
+  medium: '40px',
+  large: '60px',
+  xlarge: '80px',
+  xxlarge: '100px'
+);
+
+@function capitalize($string) {
+  @return to-upper-case(str-slice($string, 1, 1)) + str-slice($string, 2);
+}
+
+@mixin utility($property, $direction, $size, $breakpoint: '') {
+  $pixelValue: #{(map-get($sizes, $size))};
+  $classDirection: capitalize($direction);
+  $classSize: capitalize($size);
+
+  @if $direction == "all" {
+    @if $breakpoint != "" {
+      @media #{(map-get($breakpoints, $breakpoint))} {
+        .u-#{$property}#{$classDirection}#{$classSize}--#{$breakpoint} {
+          #{$property}: $pixelValue;
+        }
+      }
+    } @else {
+      .u-#{$property}#{$classDirection}#{$classSize} {
+        #{$property}: $pixelValue;
+      }
+    }
+  } @else if $direction == "vertical" {
+    @if $breakpoint != "" {
+      @media #{(map-get($breakpoints, $breakpoint))} {
+        .u-#{$property}#{$classDirection}#{$classSize}--#{$breakpoint} {
+          #{$property}: $pixelValue 0;
+        }
+      }
+    } @else {
+      .u-#{$property}#{$classDirection}#{$classSize} {
+        #{$property}: $pixelValue 0;
+      }
+    }
+  } @else if $direction == "horizontal" {
+    @if $breakpoint != "" {
+      @media #{(map-get($breakpoints, $breakpoint))} {
+        .u-#{$property}#{$classDirection}#{$classSize}--#{$breakpoint} {
+          #{$property}: 0 $pixelValue;
+        }
+      }
+    } @else {
+      .u-#{$property}#{$classDirection}#{$classSize} {
+        #{$property}: 0 $pixelValue;
+      }
+    }
+  } @else {
+    @if $breakpoint != "" {
+      @media #{(map-get($breakpoints, $breakpoint))} {
+        .u-#{$property}#{$classDirection}#{$classSize}--#{$breakpoint} {
+          #{$property}-#{$direction}: $pixelValue;
+        }
+      }
+    } @else {
+      .u-#{$property}#{$classDirection}#{$classSize} {
+        #{$property}-#{$direction}: $pixelValue;
+      }
+    }
+  }
+}
+
+// Here's how to use it:
+
+// @include utility(padding, horizontal, medium, 'portable');
+
+// @include utility(margin, left, xsmall);
