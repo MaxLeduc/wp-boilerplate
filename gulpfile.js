@@ -18,7 +18,7 @@ var vendorScripts = [
 
 var stylesPaths = [
   './includes/**/*.scss',
-  './src/sass/styles.scss'
+  './src/sass/style.scss'
 ]
 
 var defaultTasks = [
@@ -110,7 +110,7 @@ gulp.task('images', function () {
 })
 
 gulp.task('watch', function () {
-  gulp.watch(['./src/sass/*.scss', './includes/**/*.scss'], ['styles'])
+  gulp.watch([stylesPaths, './src/sass/initializers/*.scss'], ['styles'])
   gulp.watch('./includes/**/*.js', ['includes_scripts'])
   gulp.watch('./src/js/*.js', ['scripts'])
   gulp.watch('./**/**/*.php', reload)

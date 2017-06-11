@@ -34,24 +34,28 @@ $sizes: (
     @if $breakpoint != "" {
       @media #{(map-get($breakpoints, $breakpoint))} {
         .u-#{$property}#{$classDirection}#{$classSize}--#{$breakpoint} {
-          #{$property}: $pixelValue 0;
+          #{$property}-top: $pixelValue;
+          #{$property}-bottom: $pixelValue;
         }
       }
     } @else {
       .u-#{$property}#{$classDirection}#{$classSize} {
-        #{$property}: $pixelValue 0;
+        #{$property}-top: $pixelValue;
+        #{$property}-bottom: $pixelValue;
       }
     }
   } @else if $direction == "horizontal" {
     @if $breakpoint != "" {
       @media #{(map-get($breakpoints, $breakpoint))} {
         .u-#{$property}#{$classDirection}#{$classSize}--#{$breakpoint} {
-          #{$property}: 0 $pixelValue;
+          #{$property}-right: $pixelValue;
+          #{$property}-left: $pixelValue;
         }
       }
     } @else {
       .u-#{$property}#{$classDirection}#{$classSize} {
-        #{$property}: 0 $pixelValue;
+        #{$property}-right: $pixelValue;
+        #{$property}-left: $pixelValue;
       }
     }
   } @else {

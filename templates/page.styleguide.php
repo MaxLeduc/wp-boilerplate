@@ -12,9 +12,10 @@ Template Name: styleguide
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?php  wp_title('|', true, 'right'); ?></title>
   <link rel="stylesheet" type="text/css" href="<?php echo get_template_directory_uri()?>/dist/css/styleguide.css">
+  <link rel="stylesheet" type="text/css" href="<?php echo get_template_directory_uri()?>/dist/css/style.css">
 </head>
 
-<body class="sg-body">
+<body class="sg-body sg-body--toggled">
   <!-- Styleguide navigation -->
   <sg-nav>
     <sg-logo><img src="" alt="logo"></sg-logo>
@@ -44,5 +45,42 @@ Template Name: styleguide
       </blockquote>
     </sg-example>
   </sg-section>
+  <script type="text/javascript">
+    (function () {
+      var navElement, linkTarget
+      navElement = document.querySelector('sg-nav')
+      forEachHeading(function (heading) {
+        if (isPrimary(heading)) createNavGroup()
+        var navLink = createNavLink(heading)
+        var target = linkTarget || navElement
+        target.appendChild(navLink)
+      })
+      function isPrimary (heading) {
+        return heading.className.indexOf('sg-h1') > -1
+      }
+      function createNavGroup () {
+        var navGroup = document.createElement('div')
+        navElement.appendChild(navGroup)
+        linkTarget = navGroup
+      }
+      function createNavLink (heading) {
+        var link = document.createElement('a')
+        link.text = heading.text
+        link.href = heading.hash
+        return link
+      }
+      function forEachHeading (callback) {
+        Array.prototype.slice.call(
+          document.querySelectorAll(sgHeadingsSelector())
+        ).forEach(callback)
+      }
+      function sgHeadingsSelector () {
+        return [1, 2, 3, 4, 5, 6].map(function (headingNumber) {
+          return '.sg-h' + headingNumber
+        }).join(', ')
+      }
+    })()
+  </script>
+  <?php get_footer() ?>
 </body>
 </html>

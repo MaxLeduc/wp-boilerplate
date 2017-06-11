@@ -17,28 +17,15 @@ $link: #0077CC;
 $link-hover: #0A5999;
 
 .sg-body {
-  margin: 0 !important;
-  padding: 20px $body-inset 20px ($nav-width + $body-inset) !important;
-  max-width: 1440px !important;
+  margin: 0 auto;
+  max-width: 1140px;
+  width: 90%;
   background: white !important;
   transition: all 0.2s ease-in-out;
-  height: auto !important;
 
   &.sg-body--toggled {
     padding: 30px !important;
     max-width: none !important;
-  }
-
-  @media (max-width: 1140px) {
-    padding: 20px $condensed-body-inset 20px ($nav-width + $condensed-body-inset) !important;
-  }
-
-  @media (max-width: 970px) {
-    padding: 20px $condensed-body-inset 20px $condensed-body-inset !important;
-  }
-
-  @media (max-width: 540px) {
-    padding: 20px !important;
   }
 
   code {
@@ -100,12 +87,6 @@ sg-nav {
       color: $link-hover;
       padding-left: 2px;
     }
-
-
-  }
-
-  @media (max-width: 970px) {
-    display: none;
   }
 }
 
