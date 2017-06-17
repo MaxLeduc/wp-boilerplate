@@ -17,6 +17,7 @@ Template Name: styleguide
 
 <body class="sg-body sg-body--toggled">
   <!-- Styleguide navigation -->
+  <span class="sg-menu-toggler">Open Menu</span>
   <sg-nav>
     <sg-logo><img src="" alt="logo"></sg-logo>
   </sg-nav>
@@ -78,6 +79,27 @@ Template Name: styleguide
         return [1, 2, 3, 4, 5, 6].map(function (headingNumber) {
           return '.sg-h' + headingNumber
         }).join(', ')
+      }
+      (function menuToggleInitializer () {
+        var menuButton = document.querySelector('.sg-menu-toggler')
+        var body = document.querySelector('body')
+        menuButton.addEventListener('click', function () {
+          menuToggleHander(menuButton, body)
+        })
+      })()
+      function menuToggleHander (menuButton, body) {
+        var bodyClasses = body.className
+        if (bodyClasses === 'sg-body') {
+          menuAppendText(menuButton, 'Open Menu')
+        } else {
+          menuAppendText(menuButton, 'Close Menu')
+        }
+        body.classList.toggle('sg-body--toggled')
+      }
+      function menuAppendText (menuButton, menuText) {
+        var text = document.createTextNode(menuText)
+        menuButton.innerHTML = ''
+        menuButton.appendChild(text)
       }
     })()
   </script>

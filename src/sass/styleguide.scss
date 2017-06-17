@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700");
+@import './initializers/variables';
 
 // typography
 $typeface: "Open Sans", sans-serif;
@@ -9,6 +10,7 @@ $body-inset: 150px;
 $condensed-body-inset: 60px;
 $logo-size: 150px;
 $rad: 3px;
+$styleguide-container-width: $container-width + 50px;
 
 // colours
 $grey: #BBBBBB;
@@ -18,15 +20,10 @@ $link-hover: #0A5999;
 
 .sg-body {
   margin: 0 auto;
-  max-width: 1140px;
+  max-width: $styleguide-container-width;
   width: 90%;
   background: white !important;
   transition: all 0.2s ease-in-out;
-
-  &.sg-body--toggled {
-    padding: 30px !important;
-    max-width: none !important;
-  }
 
   code {
     text-transform: none !important;
@@ -88,6 +85,16 @@ sg-nav {
       padding-left: 2px;
     }
   }
+}
+
+.sg-menu-toggler {
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 15px 30px;
+  background: $grey;
+  cursor: pointer;
+  z-index: 999;
 }
 
 sg-h1, sg-h2, sg-h3, sg-h4, sg-h5, sg-h6,
