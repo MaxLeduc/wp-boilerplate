@@ -18,6 +18,8 @@ var vendorScripts = [
 
 var stylesPaths = [
   './includes/**/*.scss',
+  './src/sass/global/*/scss',
+  './src/sass/pages/*/scss',
   './src/sass/style.scss'
 ]
 
@@ -111,7 +113,7 @@ gulp.task('images', function () {
 
 gulp.task('watch', function () {
   gulp.watch([stylesPaths, './src/sass/initializers/*.scss'], ['styles'])
-  gulp.watch('./includes/**/*.js', ['includes_scripts'])
+  gulp.watch('./includes/**/*.js', ['scripts'])
   gulp.watch('./src/js/*.js', ['scripts'])
   gulp.watch('./**/**/*.php', reload)
 })

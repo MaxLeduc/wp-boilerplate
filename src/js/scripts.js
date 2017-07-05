@@ -1,5 +1,5 @@
-$(function(){
+/* global $ */
 
-	console.log("It's working");
-
-});
+$(function () {
+  // global js goes here.
+})

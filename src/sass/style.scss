@@ -11,14 +11,3 @@
 @import "./initializers/typography";
 @import "./initializers/grid";
 @import "./initializers/combo";
-
-/*
-====================================
-Default Styling
-====================================
-*/
-
-.container {
-	max-width: $container-width;
-	margin: 0 auto;
-}
