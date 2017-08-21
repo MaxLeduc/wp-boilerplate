@@ -26,6 +26,15 @@ var stylesPaths = [
   './src/global/sass/style.scss'
 ]
 
+var defaultTasks = [
+  'styles',
+  'vendorScripts',
+  'components_scripts',
+  'global_scripts',
+  'images',
+  'browserSync'
+]
+
 gulp.task('browserSync', function () {
   browserSync.init({
     proxy: 'http://localhost:8888'
@@ -108,15 +117,6 @@ gulp.task('images', function () {
     .pipe(imageMin())
     .pipe(gulp.dest('./dist/images'))
 })
-
-var defaultTasks = [
-  'styles',
-  'vendorScripts',
-  'components_scripts',
-  'global_scripts',
-  'images',
-  'browserSync'
-]
 
 var watchTasks = [
   { name: 'watch-css', filepath: stylesPaths, callback: 'styles' },
