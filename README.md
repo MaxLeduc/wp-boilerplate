@@ -1,6 +1,6 @@
 # wp-boilerplate
 
-This is a simple theme to get you up and running with a new theme in WordPress. 
+This is a simple theme to get you up and running with a new theme in WordPress, created by Max Leduc. 
 
 ## Gulp
 

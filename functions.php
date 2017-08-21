@@ -40,26 +40,34 @@ add_action( 'after_setup_theme', 'theme_setup' );
 
 /* enqueues compiled style.css to the header - add new styles in gulp tasks */
 
-function theme_styles(){
-  wp_enqueue_style('style', get_template_directory_uri() . '/dist/css/style.css' );
+function theme_styles (){
+  wp_enqueue_style('style', get_template_directory_uri() . '/style.css' );
 }
 
 add_action( 'wp_enqueue_scripts', 'theme_styles');
 
 /* enqueues compiled main.min.js to the header - add new scripts in gulp tasks */
 
-function theme_scripts() {
+function theme_scripts () {
   wp_enqueue_script(
-    'vendors', //handle
+    'vendors-scripts', //handle
     get_template_directory_uri() . '/dist/js/vendors.js', //source
     null, // version number
     true //load in footer
   );
 
   wp_enqueue_script(
-    'scripts', //handle
-    get_template_directory_uri() . '/dist/js/main.min.js', //source
-    array( 'vendors' ), //dependencies
+    'global-scripts', //handle
+    get_template_directory_uri() . '/dist/js/global.min.js', //source
+    array( 'vendors-scripts' ), //dependencies
+    null, // version number
+    true //load in footer
+  );
+
+  wp_enqueue_script(
+    'components-scripts', //handle
+    get_template_directory_uri() . '/dist/js/components.min.js', //source
+    array( 'vendors-scripts' ), //dependencies
     null, // version number
     true //load in footer
   );

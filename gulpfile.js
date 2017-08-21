@@ -10,31 +10,25 @@ var gulp = require('gulp'),
   sass = require('gulp-sass'),
   sourcemaps = require('gulp-sourcemaps'),
   uglify = require('gulp-uglify'),
-  browserify = require('gulp-browserify')
+  browserify = require('gulp-browserify'),
+  watch = require('gulp-watch')
+  // gutil = require('gulp-util') // useful to console log in terminal
 
 var vendorScripts = [
   './node_modules/jquery/dist/jquery.min.js'
 ]
 
 var stylesPaths = [
-  './includes/**/*.scss',
-  './src/sass/global/*/scss',
-  './src/sass/pages/*/scss',
-  './src/sass/style.scss'
+  './src/global/sass/initializers/*.scss',
+  './src/components/**/*.scss',
+  './src/global/sass/global/*/scss',
+  './src/global/sass/pages/*/scss',
+  './src/global/sass/style.scss'
 ]
 
-var defaultTasks = [
-  'styles',
-  'vendorScripts',
-  'scripts',
-  'images',
-  'bs',
-  'watch'
-]
-
-gulp.task('bs', function () {
+gulp.task('browserSync', function () {
   browserSync.init({
-    proxy: 'http://localhost'
+    proxy: 'http://localhost:8888'
   })
 })
 
@@ -64,7 +58,7 @@ gulp.task('styles', function () {
     .pipe(concat('style.css'))
     .pipe(autoprefixer('last 5 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1'))
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest('./dist/css'))
+    .pipe(gulp.dest('./'))
     .pipe(reload({ stream: true }))
 })
 
@@ -79,8 +73,8 @@ gulp.task('vendorScripts', function () {
     .pipe(reload({stream: true}))
 })
 
-gulp.task('includes_scripts', function () {
-  return gulp.src(['./includes/**/*.js'])
+gulp.task('components_scripts', function () {
+  return gulp.src(['./src/components/index.js'])
     .pipe(plumber({
       errorHandler: notify.onError('Error: <%= error.message %>')
     }))
@@ -88,35 +82,67 @@ gulp.task('includes_scripts', function () {
       insertGlobals: true,
       debug: !gulp.env.production
     }))
-    .pipe(concat('includes.min.js'))
+    .pipe(concat('components.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest('./dist/js'))
     .pipe(reload({stream: true}))
 })
 
-gulp.task('scripts', ['includes_scripts'], function () {
-  return gulp.src(['./dist/js/includes.min.js', './src/js/*.js'])
+gulp.task('global_scripts', function () {
+  return gulp.src(['./src/global/js/index.js'])
     .pipe(plumber({
       errorHandler: notify.onError('Error: <%= error.message %>')
     }))
-    .pipe(concat('main.min.js'))
+    .pipe(browserify({
+      insertGlobals: true,
+      debug: !gulp.env.production
+    }))
+    .pipe(concat('global.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest('./dist/js'))
     .pipe(reload({stream: true}))
 })
 
 gulp.task('images', function () {
-  return gulp.src('./images/**/*')
+  return gulp.src('./src/images/**/*')
     .pipe(imageMin())
-    .pipe(gulp.dest('./images'))
+    .pipe(gulp.dest('./dist/images'))
 })
 
-gulp.task('watch', function () {
-  gulp.watch([stylesPaths, './src/sass/initializers/*.scss'], ['styles'])
-  gulp.watch('./includes/**/*.js', ['scripts'])
-  gulp.watch('./src/js/*.js', ['scripts'])
-  gulp.watch('./**/**/*.php', reload)
-})
+var defaultTasks = [
+  'styles',
+  'vendorScripts',
+  'components_scripts',
+  'global_scripts',
+  'images',
+  'browserSync'
+]
+
+var watchTasks = [
+  { name: 'watch-css', filepath: stylesPaths, callback: 'styles' },
+  { name: 'watch-js-components', filepath: ['./src/components/**/*.js'], callback: ['components_scripts'] },
+  { name: 'watch-js-general', filepath: './src/global/js/**/*.js', callback: ['global_scripts'] },
+  { name: 'watch-php', filepath: ['./*.php', './src/components/**/*.php'], callback: reload }
+]
+
+function createWatchFunctions () {
+  watchTasks.forEach(function (task) {
+    gulp.task(task.name, function () {
+      return watch(task.filepath, function () {
+        gulp.run(task.callback)
+      })
+    })
+  })
+}
+
+function addWatchFunctionsToDefault () {
+  watchTasks.forEach(function (task) {
+    defaultTasks.push(task.name)
+  })
+}
+
+createWatchFunctions()
+addWatchFunctionsToDefault()
 
 gulp.task('default', defaultTasks)
 gulp.task('styleguide', ['styleguide_styles'])
