@@ -1,1 +1,1 @@
-require('./example-component/example-component.js')()
+require('./example-component')()

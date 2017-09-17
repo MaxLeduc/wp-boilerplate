@@ -1,5 +1,11 @@
-<?php get_header(); ?>
+<?php
+  /**
+  * Template Name: home template 
+  */
 
-<?php get_template_part('src/components/example-component/example', 'component'); ?>
+  get_header();
 
-<?php get_footer(); ?>
+  get_template_part('src/components/example-component/example', 'component');
+
+  get_footer(); 
+?>

@@ -6,7 +6,7 @@ $sizes: (
   medium: '40px',
   large: '60px',
   xlarge: '80px',
-  xxlarge: '100px'
+  xxlarge: '140px'
 );
 
 @function capitalize($string) {
@@ -74,7 +74,24 @@ $sizes: (
 }
 
 // Here's how to use it:
-
 // @include utility(padding, horizontal, medium, 'portable');
 
-// @include utility(margin, left, xsmall);
+@include utility(padding, vertical, xxlarge);//.u-paddingVerticalXxlarge
+
+@include utility(margin, vertical, medium);//.u-marginVerticalMedium
+
+@include utility(margin, all, large);//.u-marginAllLarge
+
+@include utility(margin, top, xxlarge);//.u-marginTopXxlarge
+@include utility(margin, top, large, 'phablet');//.u-marginTopLarge--phablet
+
+@include utility(margin, bottom, small);//.u-marginBottomSmall
+@include utility(margin, bottom, small, 'ipad');//.u-marginBottomSmall--ipad
+@include utility(margin, bottom, small, 'phablet')//.u-marginBottomSmall--phablet
+@include utility(margin, bottom, medium);//.u-marginBottomMedium
+@include utility(margin, bottom, medium, 'portable');//.u-marginBottomMedium--portable
+@include utility(margin, bottom, medium, 'phablet');//.u-marginBottomMedium--phablet
+@include utility(margin, bottom, xlarge);
+
+@include utility(margin, right, medium);//.u-marginRightMedium
+@include utility(margin, right, medium, 'portable');//.u-marginRightMedium--portable

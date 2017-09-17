@@ -1,1 +1,1 @@
-<h1 class="foo">hello world - example</h1>
+<h1 class="example-title">Hello World!</h1>

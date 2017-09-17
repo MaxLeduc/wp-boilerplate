@@ -2,4 +2,20 @@
 	max-width: $container-width;
 	margin-left: auto;
 	margin-right: auto;
+	width: 90%;
+}
+
+.container--narrow {
+  max-width: 1065px;
+  width: 100%;
+
+  @include media(portable) {
+    max-width: 600px;
+  }
+}
+
+.container--flex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }

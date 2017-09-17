@@ -3,11 +3,21 @@
 * Version: 1.0
 */
 
+// initializers
 @import "./initializers/variables";
-@import "./initializers/mixins";
+@import "./initializers/basics";
+@import "./initializers/reset";
 @import "./initializers/mediaQueries";
-@import "./initializers/utilityMixin";
-@import "./initializers/utilityClasses";
-@import "./initializers/typography";
 @import "./initializers/grid";
 @import "./initializers/combo";
+@import "./initializers/typography";
+@import "./initializers/utilityMixin";
+@import "./initializers/utilityClasses";
+
+// global styling
+
+@import "./global/*.scss";
+
+// component stylings
+
+@import "./../../components/**/*.scss"

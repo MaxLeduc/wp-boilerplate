@@ -11,19 +11,23 @@ var gulp = require('gulp'),
   sourcemaps = require('gulp-sourcemaps'),
   uglify = require('gulp-uglify'),
   browserify = require('gulp-browserify'),
-  watch = require('gulp-watch')
+  watch = require('gulp-watch'),
+  sassGlob = require('gulp-sass-glob')
+  // del = require('del'), // should add a 'clean' task in the future
   // gutil = require('gulp-util') // useful to console log in terminal
 
 var vendorScripts = [
   './node_modules/jquery/dist/jquery.min.js'
 ]
 
-var stylesPaths = [
-  './src/global/sass/initializers/*.scss',
-  './src/components/**/*.scss',
-  './src/global/sass/global/*/scss',
-  './src/global/sass/pages/*/scss',
-  './src/global/sass/style.scss'
+var stylesWatchPaths = [
+  './src/global/sass/**/*.scss',
+  './src/components/**/*.scss'
+]
+
+var stylesCompilePaths = [
+  './src/global/sass/style.scss',
+  './node_modules/slick-carousel/slick/slick.css'
 ]
 
 var defaultTasks = [
@@ -37,27 +41,13 @@ var defaultTasks = [
 
 gulp.task('browserSync', function () {
   browserSync.init({
-    proxy: 'http://localhost:8888'
+   proxy: 'http://localhost:8888'
   })
 })
 
-gulp.task('styleguide_styles', function () {
-  return gulp.src('./src/sass/styleguide.scss')
-    .pipe(plumber({
-      errorHandler: notify.onError('Error: <%= error.message %>')
-    }))
-    .pipe(sourcemaps.init())
-    .pipe(sass())
-    .pipe(minifyCSS())
-    .pipe(concat('styleguide.css'))
-    .pipe(autoprefixer('last 5 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1'))
-    .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest('./dist/css'))
-    .pipe(reload({ stream: true }))
-})
-
 gulp.task('styles', function () {
-  return gulp.src(stylesPaths)
+  return gulp.src(stylesCompilePaths)
+    .pipe(sassGlob())
     .pipe(plumber({
       errorHandler: notify.onError('Error: <%= error.message %>')
     }))
@@ -119,18 +109,22 @@ gulp.task('images', function () {
 })
 
 var watchTasks = [
-  { name: 'watch-css', filepath: stylesPaths, callback: 'styles' },
+  { name: 'watch-css', filepath: stylesWatchPaths, callback: ['styles'] },
   { name: 'watch-js-components', filepath: ['./src/components/**/*.js'], callback: ['components_scripts'] },
   { name: 'watch-js-general', filepath: './src/global/js/**/*.js', callback: ['global_scripts'] },
-  { name: 'watch-php', filepath: ['./*.php', './src/components/**/*.php'], callback: reload }
+  { name: 'watch-php', filepath: ['./*.php', './src/components/**/*.php'], callback: false }
 ]
 
 function createWatchFunctions () {
   watchTasks.forEach(function (task) {
     gulp.task(task.name, function () {
-      return watch(task.filepath, function () {
-        gulp.run(task.callback)
-      })
+      if (task.callback) {
+        return watch(task.filepath, function () {
+          gulp.run(task.callback)
+        })
+      } else {
+        return watch(task.filepath, reload)
+      }
     })
   })
 }
