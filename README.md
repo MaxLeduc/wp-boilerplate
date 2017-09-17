@@ -35,4 +35,4 @@ Please make sure you have these installed on your machine before getting started
 ## Acknowledgements
 
 - This theme was originally derived from the hackerYou WordPress starter theme https://github.com/HackerYou/wordpress_starter_theme.git.
-- Special Thanks to @themarkappleby for his contribution to this project.
+- Special Thanks to `themarkappleby` for his contribution to this project.
