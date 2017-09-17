@@ -2,7 +2,7 @@
 
 This WordPress boilerplate theme can be use to kick start quickly any WP project. Simply download/clone this repo in our theme's folder and active it in the WP backend.
 
-# Getting Started
+## Getting Started
 
 1. `git clone https://github.com/MaxLeduc/wp-boilerplate.git`
 1. `cd wp-boilerplate`
@@ -34,5 +34,5 @@ Please make sure you have these installed on your machine before getting started
 
 ## Acknowledgements
 
-- This theme was originally derived from the hackerYou starter theme https://github.com/HackerYou/wordpress_starter_theme.git.
-- Special Thanks to `themarkappleby` for his contribution to this project.
+- This theme was originally derived from the hackerYou WordPress starter theme https://github.com/HackerYou/wordpress_starter_theme.git.
+- Special Thanks to @themarkappleby for his contribution to this project.
